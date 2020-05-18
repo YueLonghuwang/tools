@@ -1,0 +1,14 @@
+
+
+spring:
+  datasource:
+    username: root
+    password: rengu
+    url: jdbc:mysql://localhost:3306/tools6?serverTimezone=GMT-8&useUnicode=true
+    type: com.alibaba.druid.pool.DruidDataSource
+server:
+  port: 8082
+
+mybatis:
+  type-aliases-package: com.rengu.tools5.entity
+  mapper-locations: classpath:/mapper/*.xml

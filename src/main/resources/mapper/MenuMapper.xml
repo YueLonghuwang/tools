@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rengu.tools7.mapper.MenuMapper">
+    <resultMap id="BaseResultMap" type="com.rengu.tools7.entity.Menu">
+        <id column="id" property="id"></id>
+        <result property="pattern" column="pattern"></result>
+        <collection ofType="com.rengu.tools7.entity.Role" property="roles">
+            <id property="id" column="id2"></id>
+            <result property="name" column="name"></result>
+            <result property="nameZh" column="nameZh"></result>
+        </collection>
+    </resultMap>
+    <select id="findAllMenusWithRoles" resultMap="BaseResultMap">
+        SELECT m.*, r.id as id2, r.`name` as name, r.nameZh as nameZh FROM menu m, menu_role mr, role r
+        WHERE m.id = mr.mid AND r.id = mr.rid
+    </select>
+</mapper>
