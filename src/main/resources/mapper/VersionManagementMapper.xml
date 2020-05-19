@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rengu.tools7.mapper.VersionManagementMapper">
+    <resultMap id="BaseResultMap" type="com.rengu.tools7.entity.tb_VersionManagementEntity">
+        <id column="Version_id" property="versionId"></id>
+        <result column="version_number" property="version_number"></result>
+        <result column="Release_notes" property="release_notes"></result>
+    </resultMap>
+
+    <select id="findAll" parameterType="string" resultMap="BaseResultMap">
+      select * from tb_versionmanagement
+    </select>
+
+    <!--根据id删除-->
+    <delete id="delete" parameterType="java.lang.String">
+      delete from tb_versionmanagement where Version_id = #{versionId}
+    </delete>
+
+    <!--根据id查询-->
+    <select id="findById" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select  * from tb_versionmanagement where Version_id = #{versionId}
+    </select>
+
+
+
+    <!--保存-->
+    <insert id="save" parameterType="com.rengu.tools7.entity.tb_ToolsBaseinfoEntity">
+        insert into tb_versionmanagement (Version_id,version_number, Release_notes)
+        values (#{versionId},#{version_number}, #{release_notes})
+    </insert>
+
+
+
+    <!--更新-->
+    <update id="update" parameterType="com.rengu.tools7.entity.tb_ToolsBaseinfoEntity">
+        update tb_versionmanagement
+         version_number = #{version_number},
+        set Release_notes = #{release_notes}
+
+        where Version_id = #{versionId}
+    </update>
+
+</mapper>

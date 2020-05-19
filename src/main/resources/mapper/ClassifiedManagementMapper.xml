@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rengu.tools7.mapper.ClassifiedManagementMapper">
+    <resultMap id="BaseResultMap" type="com.rengu.tools7.entity.tb_ClassifiedManagementEntity">
+        <id column="id" property="id"></id>
+        <result column="type" property="type"></result>
+    </resultMap>
+
+    <select id="findAll" parameterType="string" resultMap="BaseResultMap">
+      select * from tb_classifiedmanagement
+    </select>
+
+    <!--根据id删除-->
+    <delete id="delete" parameterType="java.lang.String">
+      delete from tb_classifiedmanagement where id = #{id}
+    </delete>
+
+    <!--根据id查询-->
+    <select id="findById" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select  * from tb_classifiedmanagement where id = #{id}
+    </select>
+
+
+
+    <!--保存-->
+    <insert id="save" parameterType="com.rengu.tools7.entity.tb_ClassifiedManagementEntity">
+        insert into tb_classifiedmanagement (id, type)
+        values (#{id}, #{type})
+    </insert>
+
+
+
+    <!--更新-->
+    <update id="update" parameterType="com.rengu.tools7.entity.tb_ClassifiedManagementEntity">
+        update tb_classifiedmanagement
+        set type = #{type}
+        where id = #{id}
+    </update>
+
+</mapper>

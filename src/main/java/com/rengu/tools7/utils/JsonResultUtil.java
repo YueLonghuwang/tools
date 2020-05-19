@@ -1,10 +1,8 @@
 package com.rengu.tools7.utils;
 
-import com.rengu.tools7.entity.User;
-
 /**
- * @author Zeng
- * @date 2020/2/25 11:31
+ * @author Eason岳
+ * @date 2020/5/7
  */
 public class JsonResultUtil {
 

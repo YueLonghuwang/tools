@@ -4,14 +4,15 @@
     <resultMap id="BaseResultMap" type="com.rengu.tools7.entity.Menu">
         <id column="id" property="id"></id>
         <result property="pattern" column="pattern"></result>
-        <collection ofType="com.rengu.tools7.entity.Role" property="roles">
-            <id property="id" column="id2"></id>
-            <result property="name" column="name"></result>
-            <result property="nameZh" column="nameZh"></result>
-        </collection>
+       <result property="patternZh" column="patternCh"></result>
     </resultMap>
-    <select id="findAllMenusWithRoles" resultMap="BaseResultMap">
-        SELECT m.*, r.id as id2, r.`name` as name, r.nameZh as nameZh FROM menu m, menu_role mr, role r
-        WHERE m.id = mr.mid AND r.id = mr.rid
+    <select id="findAllMenusWithRoles" resultType="com.rengu.tools7.entity.Menu">
+        select  * from menu
     </select>
+
+
+
+
+
+
 </mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rengu.tools7.mapper.ToolsevaluateMapper">
+    <resultMap id="BaseResultMap" type="com.rengu.tools7.entity.tb_Toolsevaluate">
+        <id column="pool_id" property="poolId"></id>
+        <result column="evaluateStar" property="evaluateStar"></result>
+        <result column="evaluateContent" property="evaluateContent"></result>
+        <result column="user_id" property="userId"></result>
+    </resultMap>
+    <select id="statisticsEvaluateStart" resultType="java.lang.Float">
+        SELECT AVG(evaluateStar)
+        FROM  tb_toolsEvaluate
+        WHERE pool_id=#{pool_id}
+    </select>
+
+    <select id="findById" resultType="com.rengu.tools7.entity.tb_Toolsevaluate">
+         SELECT  * FROM tb_toolsevaluate WHERE pool_id = #{poolId}  AND  user_id = #{userId}
+    </select>
+
+
+    <delete id="delete">
+        delete  from tb_toolsevaluate where pool_id = #{poolId}   AND  user_id = #{userId}
+    </delete>
+
+    <delete id="Pdelete">
+          delete  from tb_toolsevaluate where pool_id = #{poolId}
+    </delete>
+
+    <insert id="save">
+     insert into tb_toolsevaluate(pool_id,evaluateStar,evaluateContent,user_id)
+     values (#{pool_id},#{evaluateStar},#{evaluateContent},#{userId})
+    </insert>
+
+    <update id="update">
+     update tb_toolsevaluate
+      set evaluateStar =#{evaluateStar},
+          evaluateContent=#{evaluateContent}
+          where pool_id =#{pool_id}
+    </update>
+</mapper>

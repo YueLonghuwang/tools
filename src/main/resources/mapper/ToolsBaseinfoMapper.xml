@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rengu.tools7.mapper.ToolsBaseinfoMapper">
+    <resultMap id="BaseResultMap" type="com.rengu.tools7.entity.tb_ToolsBaseinfoEntity">
+        <id column="id" property="id"></id>
+        <result column="environment" property="environment"></result>
+        <result column="scope" property="scope"></result>
+        <result column="name" property="name"></result>
+        <result column="size" property="size"></result>
+        <result column="summarize" property="summarize"></result>
+        <result column="updateTime" property="updateTime"></result>
+        <result column="provider" property="provider"></result>
+        <result column="developers" property="developers"></result>
+        <result column="copyright" property="copyright"></result>
+        <result column="describess" property="describe"></result>
+        <result column="score" property="score"></result>
+        <result column="typeId" property="typeId"></result>
+    </resultMap>
+
+    <select id="findAll"  resultMap="BaseResultMap">
+      select * from tb_toolsbaseinfo
+    </select>
+
+    <!--根据id删除-->
+    <delete id="delete" parameterType="java.lang.String">
+      delete from tb_toolsbaseinfo     where id = #{id}
+    </delete>
+
+    <!--根据id查询-->
+    <select id="findById" parameterType="java.lang.String" resultMap="BaseResultMap">
+       SELECT  * FROM tb_toolsbaseinfo t  , tb_classifiedmanagement c  WHERE
+ t.id = #{id} AND
+ t.typeId = c.id
+    </select>
+
+
+
+    <!--保存-->
+    <insert id="save" parameterType="com.rengu.tools7.entity.tb_ToolsBaseinfoEntity">
+        insert into tb_toolsbaseinfo (id, environment,scope,name,size,summarize,updateTime,provider,developers,copyright,describess,score,typeId)
+        values (#{id}, #{environment},#{scope},#{name},#{size},#{summarize},#{updateTime},#{provider},#{developers},#{copyright},#{describe},#{score},#{typeId})
+    </insert>
+
+
+
+    <!--更新-->
+    <update id="update" parameterType="com.rengu.tools7.entity.tb_ToolsBaseinfoEntity">
+         UPDATE tb_toolsbaseinfo t
+  SET   t.`environment`=#{environment},
+        t.`scope`=#{scope},
+        t.`name` =#{name},
+        t.`size`=#{size},
+        t.`summarize`=#{summarize},
+        t.`updateTime`=#{updateTime},
+        t.`provider`=#{provider},
+        t.`developers`=#{developers},
+        t.`copyright`=#{copyright},
+        t.`describess`=#{describe},
+        t.`score`=#{score},
+        t.`typeId`=#{typeId}
+        WHERE id = #{id}
+    </update>
+</mapper>

@@ -1,25 +1,53 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rengu.tools7.mapper.UserMapper">
-    <select id="loadUserByUsername" parameterType="java.lang.String" resultType="com.rengu.tools7.entity.User">
-        SELECT * FROM user WHERE username = #{s}
+   <resultMap id="BaseResultMap" type="com.rengu.tools7.entity.UserEntity">
+            <id column="id" property="id"/>
+            <result column="username" property="username"/>
+            <result column="password" property="password"/>
+            <result column="enabled" property="enabled"/>
+            <result column="locked" property="locked"/>
+            <result column="company_id" property="companyId"/>
+   </resultMap>
+    <update id="update">
+        update pe_user
+        set username =#{username},
+        password =#{password},
+        enabled =#{enabled},
+        locked =#{locked}
+        where id =#{id}
+    </update>
+
+    <delete id="delete">
+        delete from pe_user where id =#{id}
+    </delete>
+
+    <select id="findAll" parameterType="java.lang.String" resultType="com.rengu.tools7.entity.UserEntity">
+         select * from pe_user where company_id=#{companyId}
     </select>
-    <select id="findRolesByUserId" parameterType="java.lang.Integer" resultType="com.rengu.tools7.entity.Role">
-        SELECT r.id as id, r.`name` as name, r.nameZh as nameZh FROM user_role ur, role r
+    <select id="findRolesByUserId" parameterType="string" resultType="com.rengu.tools7.entity.RoleEntiey">
+        SELECT r.id as id, r.`name` as name, r.nameZh as nameZh FROM user_role ur, pe_role r
         WHERE ur.rid = r.id AND ur.uid = #{id}
     </select>
+    <select id="loadUserByUsername" resultType="com.rengu.tools7.entity.UserEntity">
+         select * from pe_user where username =#{username}
+    </select>
 
-    <insert id="addUser" parameterType="com.rengu.tools7.entity.User">
-        INSERT INTO `user`(id,username,password,enabled,locked) VALUES (#{id},#{username},#{password}, 1, 0);
+    <insert id="insertUser" parameterType="com.rengu.tools7.entity.UserEntity">
+        insert into user(id,username,password,role) values(#{id},#{username},#{password},#{role})
     </insert>
 
+<!--    <insert id="insertUser" parameterType="com.rengu.tools7.entity.User">-->
+<!--        insert into user(id,username,password,role) values(#{id},#{username},#{password},#{role})-->
+<!--    </insert>-->
+
     <insert id="insertUserRole" parameterType="java.lang.Integer" >
-    insert into user_role (uid, rid)
+    insert into sys_user_role (uid, rid)
     values (#{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER})
   </insert>
-
-    <select id="findUserByLimit" parameterType="java.lang.String" resultType="com.rengu.tools7.entity.User">
-        SELECT * FROM user WHERE limits = #{limits}
-    </select>
+    <insert id="save">
+           insert into pe_user (id,username,password,enabled,locked,company_id)
+        values (#{id},#{username},#{password},#{enabled},#{locked},#{companyId})
+    </insert>
 
 </mapper>
