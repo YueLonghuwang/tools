@@ -1,14 +1,29 @@
-
-
 spring:
   datasource:
     username: root
     password: rengu
-    url: jdbc:mysql://localhost:3306/tools6?serverTimezone=GMT-8&useUnicode=true
+    url: jdbc:mysql://localhost:3306/tool?serverTimezone=GMT-8&useUnicode=true
     type: com.alibaba.druid.pool.DruidDataSource
+    schema: classpath:tool.sql
+    data: classpath:tool.sql
+    initialization-mode: always
+    continue-on-error: true
+   # separator: |
+  servlet:
+    multipart:
+      file-size-threshold: 10MB
+      max-file-size: 4GB
+      max-request-size: 4GB
+#
 server:
   port: 8082
 
 mybatis:
-  type-aliases-package: com.rengu.tools5.entity
+  type-aliases-package: com.rengu.tools7.entity
   mapper-locations: classpath:/mapper/*.xml
+
+pagehelper:
+  helper-dialect: mysql
+  params: count=countSql
+  reasonable: true
+  support-methods-arguments: true

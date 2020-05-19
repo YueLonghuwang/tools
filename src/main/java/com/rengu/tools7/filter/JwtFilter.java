@@ -23,8 +23,8 @@ import java.io.PrintWriter;
 import java.util.List;
 
 /**
- * @author Zeng
- * @date 2020/2/25 11:43
+ * @author Eason岳
+ * @date 2020/5/7
  * 用户携带的token是否有效
  */
 public class JwtFilter extends GenericFilterBean {
@@ -74,6 +74,4 @@ public class JwtFilter extends GenericFilterBean {
         //放行
         filterChain.doFilter(servletRequest, servletResponse);
     }
-
-
 }
