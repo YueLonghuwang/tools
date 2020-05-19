@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rengu.tools7.mapper.MenuRoleMapper">
+
+    <resultMap id="BaseResultMap" type="com.rengu.tools7.entity.MenuRole">
+        <result column="mid" property="mid"></result>
+        <result column="rid" property="rid"/>
+    </resultMap>
+    <insert id="save">
+        insert into menu_role(
+        `mid`,
+        rid
+        )values (
+        #{mid},
+        #{rid}
+        )
+    </insert>
+    <delete id="deleteByRoleId">
+        delete  from menu_role where rid =#{rid}
+    </delete>
+    <select id="findMenuByRole" resultType="com.rengu.tools7.entity.Menu">
+      SELECT * FROM menu_role r, menu m WHERE r.rid =#{rid} AND m.id = r.mid
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rengu.tools7.mapper.FileMapper">
+
+    <resultMap id="BaseResultMap" type="com.rengu.tools7.entity.FileEntity">
+        <id column="id" property="id"></id>
+        <result column="mD5" property="md5"></result>
+        <result column="type" property="type"></result>
+        <result column="size" property="size"></result>
+        <result column="localPath" property="localPath"></result>
+        <result column="createTime" property="createTime"></result>
+        <result column="fileName" property="fileName"></result>
+        <result column="filePath" property="filePath"></result>
+        <result column="state" property="state"></result>
+        <result column="toolsbaseinfo_id" property="toolsbaseinfoId"></result>
+        <result column="toolsstorage_id" property="toolsstorageId"></result>
+        <result column="versionmanagement_id" property="versionmanagementId"></result>
+        <result column="classifiedmanagement_id" property="classifiedmanagementId"></result>
+        <result column="updownloadmanagement_id" property="updownloadmanagementId"></result>
+        <result column="averageScore" property="averageScore"></result>
+        <result column="downloadStatistics" property="downloadStatistics"></result>
+    </resultMap>
+
+     <select id="findByMD5" parameterType="string" resultMap="BaseResultMap">
+          select * from tb_file where md5=#{md5}
+     </select>
+
+
+
+
+
+    <insert id="add" >
+        insert into tb_file
+        (id,md5,type,size,localPath,createTime,fileName,filePath,state,toolsbaseinfo_id,toolsstorage_id,
+        versionmanagement_id,classifiedmanagement_id,updownloadmanagement_id,averageScore,downloadStatistics)
+        values (#{id},#{md5},#{type},#{size},#{localPath},#{createTime},
+        #{fileName},#{filePath},#{state},#{toolsbaseinfoId},#{toolsstorageId},#{versionmanagementId},#{classifiedmanagementId},#{updownloadmanagementId},#{averageScore},#{downloadStatistics})
+    </insert>
+
+    <update id="addEvaluate">
+        update tb_file set
+        averageScore = #{averageScore}
+        where id =#{id}
+    </update>
+
+
+    <update id="state" parameterType="string">
+    UPDATE tb_file SET state =#{state} WHERE id =#{id}
+</update>
+    <update id="downloadStatistics">
+        UPDATE tb_file SET downloadStatistics=downloadStatistics+1 WHERE id =#{id}
+    </update>
+
+    <select id="findAll" resultType="java.util.Map">
+       SELECT * FROM tb_file   order by averageScore desc ,downloadStatistics  desc
+    </select>
+
+    <select id="KfindAll" resultType="java.util.Map">
+       SELECT * FROM tb_file   order by downloadStatistics  desc
+    </select>
+    <select id="findByIds" resultType="java.util.Map">
+         SELECT * FROM tb_file f, tb_versionmanagement v WHERE f.`id`=#{id} and v.`Version_id`=f.`versionmanagement_id`
+    </select>
+
+    <delete id="delete">
+         delete from tb_file where id = #{id}
+    </delete>
+
+    <select id="findByName" parameterType="string"  resultType="com.rengu.tools7.entity.FileEntity">
+        select * from tb_file where fileName like '%' #{fileName} '%'
+    </select>
+
+    <select id="findByNameAndScope" parameterType="string"  resultType="com.rengu.tools7.entity.FileEntity">
+         SELECT r.* FROM tb_file r ,tb_toolsbaseinfo ru
+        WHERE r.fileName like '%' #{fileName} '%' AND ru.scope like '%'#{scope} '%'
+    </select>
+    <select id="findById" resultType="com.rengu.tools7.entity.FileEntity">
+        SELECT * FROM tb_file WHERE id=#{id}
+    </select>
+</mapper>

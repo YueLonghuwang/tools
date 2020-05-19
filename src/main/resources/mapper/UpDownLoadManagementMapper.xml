@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rengu.tools7.mapper.UpDownLoadManagementMapper">
+    <resultMap id="BaseResultMap" type="com.rengu.tools7.entity.tb_UpDownLoadManagementEntity">
+        <id column="user_id" property="id"/>
+        <result column="program" property="program"/>
+        <result column="environment" property="environment"/>
+        <result column="patch" property="patch"/>
+        <result column="instructions" property="instructions"/>
+        <result column="goodCase" property="goodCase"/>
+
+    </resultMap>
+
+    <!--根据企业id查询全部-->
+    <select id="findAll" parameterType="string" resultMap="BaseResultMap">
+      select * from tb_updownloadmanagement
+    </select>
+
+    <!--根据id删除-->
+    <delete id="delete" parameterType="java.lang.String">
+      delete from tb_updownloadmanagement where id = #{id}
+    </delete>
+    <!--根据id查询-->
+    <select id="findById" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select  * from tb_updownloadmanagement where id = #{id}
+    </select>
+    <!--保存-->
+    <insert id="save" parameterType="com.rengu.tools7.entity.tb_UpDownLoadManagementEntity">
+        insert into tb_updownloadmanagement (id, program, environment, patch, instructions, goodCase
+       )
+        values (#{id}, #{program}, #{environment}, #{patch}, #{instructions}, #{goodCase})
+    </insert>
+
+
+
+    <!--更新-->
+    <update id="update" parameterType="com.rengu.tools7.entity.tb_UpDownLoadManagementEntity">
+        update tb_updownloadmanagement
+        set program = #{program},
+        environment = #{environment},
+        patch = #{patch},
+        instructions = #{instructions},
+        goodCase = #{goodCase}
+        where user_id = #{id}
+    </update>
+</mapper>

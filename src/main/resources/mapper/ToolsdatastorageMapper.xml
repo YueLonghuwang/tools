@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rengu.tools7.mapper.ToolsdatastorageMapper">
+     <resultMap id="BaseResultMap" type="com.rengu.tools7.entity.tb_Toolsdatastorage">
+         <id column="id" property="id"></id>
+         <result column="user_id" property="userId"></result>
+         <result column="file_id" property="fileId"></result>
+         <result column="file_path" property="filePath"></result>
+         <result column="state" property="state"></result>
+         <result column="size" property="size"></result>
+         <result column="md5" property="md5"></result>
+         <result column="name" property="name"></result>
+         <result column="type" property="type"></result>
+     </resultMap>
+    <insert id="save">
+    insert into tb_toolsdatastorage (id,user_id,file_id,file_path,state,size,md5,name,type)
+    values (#{id},#{userId},#{fileId},#{filePath},#{state},#{size},#{md5},#{name},#{type})
+    </insert>
+    <update id="update">
+
+    </update>
+    <update id="fruitstate">
+        update tb_toolsdatastorage
+        set state=#{state}
+        where id =#{id}
+    </update>
+    <delete id="delete">
+        delete  from tb_toolsdatastorage where id=#{id}
+    </delete>
+
+    <select id="findAll" resultType="com.rengu.tools7.entity.tb_Toolsdatastorage">
+                    select * from tb_toolsdatastorage
+    </select>
+    <select id="findById" resultType="com.rengu.tools7.entity.tb_Toolsdatastorage">
+       select * from tb_toolsdatastorage where id=#{id}
+    </select>
+    <select id="calculateFileSize" resultType="java.lang.Integer">
+        SELECT SUM(size) AS size FROM tb_toolsdatastorage where file_id=#{fileId};
+    </select>
+    <select id="StatisticalLine" resultType="java.lang.Integer">
+        SELECT COUNT(size) FROM tb_toolsdatastorage WHERE file_id=#{fileId};
+    </select>
+    <select id="findPrivateFruit" resultType="com.rengu.tools7.entity.tb_Toolsdatastorage">
+        select * from tb_toolsdatastorage where user_id=#{userId} and state =#{state} and file_id =#{fileId}
+    </select>
+
+    <select id="findByMD5" resultType="com.rengu.tools7.entity.tb_Toolsdatastorage">
+        select * from tb_toolsdatastorage where md5=#{md5}
+    </select>
+    <select id="findPublicFruit" resultType="com.rengu.tools7.entity.tb_Toolsdatastorage">
+         SELECT * FROM tb_toolsdatastorage WHERE  state =#{state}  AND file_id =#{fileId}
+    </select>
+
+</mapper>
