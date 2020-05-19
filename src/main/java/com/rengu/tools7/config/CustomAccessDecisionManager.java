@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 
 /**
- * @author Zeng
- * @date 2020/2/24 23:33
+ * @author Eason岳
+ * @date 2020/5/7
  * 判断请求当前用户具有哪些角色,如果用户具备访问路径须具备的角色则允许访问,否则判为非法请求
  */
 @Component

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rengu.tools7.mapper.ToolsstorageMapper">
+    <resultMap id="BaseResultMap" type="com.rengu.tools7.entity.tb_ToolsStorageEntity">
+        <id column="id" property="id"></id>
+        <result column="path" property="path"></result>
+        <result column="name" property="name"></result>
+    </resultMap>
+
+    <select id="findAll" parameterType="string" resultMap="BaseResultMap">
+      select * from tb_toolsstorage
+    </select>
+
+    <!--根据id删除-->
+    <delete id="delete" parameterType="java.lang.String">
+      delete from tb_toolsstorage where id = #{id}
+    </delete>
+
+    <!--根据id查询-->
+    <select id="findById" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select  * from tb_toolsstorage where id = #{id}
+    </select>
+
+
+
+    <!--保存-->
+    <insert id="save" parameterType="com.rengu.tools7.entity.tb_ToolsBaseinfoEntity">
+        insert into tb_toolsstorage (id, path,name)
+        values (#{id}, #{path},#{name})
+    </insert>
+
+
+
+    <!--更新-->
+    <update id="update" parameterType="com.rengu.tools7.entity.tb_ToolsBaseinfoEntity">
+        update tb_toolsstorage
+        set path = #{path},
+        set name = #{name},
+
+        where id = #{id}
+    </update>
+
+</mapper>
